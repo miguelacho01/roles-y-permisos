@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\User;
+use PhpParser\Node\Expr\Assign;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,11 +16,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+     $this->call([PermissionSeeder::class]);
+    
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+    User::factory(2)->create();
+    $admin = User::find(1);
+    $admin->assignRole('admin');
+    $cashier = User::find(2);
+    $cashier->assignRole('casher');
     }
 }
